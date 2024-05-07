@@ -1,0 +1,92 @@
+{% load static %}
+{% load active_link_tags %}
+<div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+               <div id="sidebar-menu" class="sidebar-menu">
+                  {% if user.user_type == '1' %}
+                  <ul>
+                     <li class="menu-title">
+                        <span>Main Menu</span>
+                     </li>
+                     <li class="{% active_link 'office_home' 'active' %}">
+                        <a href="{% url 'office_home' %}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                     </li>
+                     <li class="submenu {% active_link 'view_teacher' 'active' %} {% active_link 'add_teacher' 'active' %}">
+                        <a href="#"><i class="fa-solid fa-user"></i> <span> Teacher</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="{% url 'view_teacher' %}">View Teacher</a></li>
+                           <li><a href="{% url 'add_teacher' %}">Add Teacher</a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu {% active_link 'add_driver' 'active' %} {% active_link 'view_driver' 'active' %}">
+                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Driver</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="{% url 'add_driver' %}">Add Driver</a></li>
+                           <li><a href="{% url 'view_driver' %}">View Driver</a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu {% active_link 'add_vehicle' 'active' %} {% active_link 'view_vehicle' 'active' %}">
+                        <a href="#"><i class="fas fa-truck-fast"></i> <span> Vehicle</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="{% url 'add_vehicle' %}">Add Vehicle</a></li>
+                           <li><a href="{% url 'view_vehicle' %}">View Vehicle</a></li>
+                        </ul>
+                     </li>
+                     <li class=" {% active_link 'requisition_view' 'active' %}">
+                        <a href="{% url 'requisition_view' %}"><i class="fas fa-envelope"></i> <span> Requisition</span> <span class="menu-arrow"></span></a>
+                     </li>
+                     <li class="submenu {% active_link 'add_schedule' 'active' %}">
+                        <a href="#"><i class="fas fa-calendar-days"></i> <span> Schedule</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="{% url 'add_schedule' %}">Add Schedule</a></li>
+                           <li><a href="{% url 'view_schedule' %}">View Schedule</a></li>
+                           <li><a href="{% url 'view_complete_schedule' %}">Completed Schedule</a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu {% active_link 'add_department' 'active' %} {% active_link 'view_department' 'active' %} ">
+                        <a href="#"><i class="fas fa-book-reader"></i> <span> Department</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="{% url 'add_department' %}">Add Department</a></li>
+                           <li><a href="{% url 'view_department' %}">View Department</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+                  {% elif user.user_type == '2' %}
+                     <ul>
+                        <li class="menu-title">
+                        <span>Main Menu</span>
+                     </li>
+                     <li class="{% active_link 'teacher_home' 'active' %}">
+                        <a href="{% url 'teacher_home' %}"><i class="fa-solid fa-vector-square"></i> <span>Dashboard</span></a>
+                     </li>
+                     <li class="{% active_link 'teacher_view_vehicle' 'active' %}">
+                        <a href="{% url 'teacher_view_vehicle' %}"><i class="fa-solid fa-vector-square"></i> <span>Vehicle</span></a>
+                     </li>
+                        <li class="{% active_link 'teacher_apply_requisition' 'active' %}">
+                        <a href="{% url 'teacher_apply_requisition' %}"><i class="fa-solid fa-vector-square"></i> <span>Requisition</span></a>
+                     </li>
+                     </ul>
+
+                  {% elif user.user_type == '3' %}
+                     <ul>
+                        <li class="menu-title">
+                        <span>Main Menu</span>
+                     </li>
+                     <li class="{% active_link 'driver_home' 'active' %}">
+                        <a href="{% url 'driver_home' %}"><i class="fa-solid fa-vector-square"></i> <span>Dashboard</span></a>
+                     </li>
+                     <li class="{% active_link 'driver_view_vehicle' 'active' %}">
+                        <a href="{% url 'driver_view_vehicle' %}"><i class="fa-solid fa-vector-square"></i> <span>Vehicle</span></a>
+                     </li>
+                        <li class="{% active_link 'driver_view_schedule' 'active' %}">
+                        <a href="{% url 'driver_view_schedule' %}"><i class="fa-solid fa-vector-square"></i> <span>New Schedule</span></a>
+                     </li>
+                     <li class="{% active_link 'driver_view_complete_schedule' 'active' %}">
+                        <a href="{% url 'driver_view_complete_schedule' %}"><i class="fa-solid fa-vector-square"></i> <span>Completed Schedule</span></a>
+                     </li>
+                     </ul>
+                  {% endif %}
+
+               </div>
+            </div>
+         </div>

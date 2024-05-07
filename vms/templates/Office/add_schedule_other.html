@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+   <div class="col-sm-12">
+      <div class="card">
+         <div class="card-body">
+            <form method = "post" action="{% url 'add_schedule_other' %}" enctype="multipart/form-data">
+               {% csrf_token %}
+               <div class="col-12">
+                  <h5 class="form-title"><span>Add Schedule</span></h5>
+               </div>
+
+               {% include 'includes/messages.html' %}
+
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Journey Date and Time</label>
+                     <input type="text" class="form-control" name="date" value="{{schedule.date}}" readonly>
+                  </div>
+               </div>
+                <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Arrival Time</label>
+                     <input type="text" class="form-control" name="arrival_time" value="{{schedule.arrival_time}}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Place</label>
+                     <input type="text" class="form-control" name="place" value="{{schedule.place}}" required>
+                  </div>
+               </div>
+
+               <div class="col-sm-11">
+                  <label>Driver</label>
+                  <select class="form-control" name="driver_id" required>
+                     <option>Select Driver</option>
+                     {% for i in driver %}
+                     {% if i not in notdriver_list %}
+                     <option value="{{i.admin.id}}">{{i.admin.first_name}} {{i.admin.last_name}}</option>
+                     {% endif %}
+                     {% endfor %}
+                  </select>
+               </div>
+               <br>
+               <div class="col-sm-11">
+                  <label>Vehicle</label>
+                  <select class="form-control" name="vehicle_id" required>
+                     <option>Select Vehicle</option>
+                     {% for i in vehicle %}
+                     {% if i not in notvehicle_list %}
+                     {% if i.status != "Maintenance"%}
+                     <option value="{{i.id}}">{{i.name}}</option>
+                     {% endif %}
+                     {% endif %}
+                     {% endfor %}
+                  </select>
+               </div>
+
+               <br>
+               <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Add Schedule</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

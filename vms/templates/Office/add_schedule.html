@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+   <div class="col-sm-12">
+      <div class="card">
+         <div class="card-body">
+            <form method = "post" action="{% url 'add_schedule' %}" enctype="multipart/form-data">
+               {% csrf_token %}
+               <div class="col-12">
+                  <h5 class="form-title"><span>Add Schedule</span></h5>
+               </div>
+
+               {% include 'includes/messages.html' %}
+
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Journey Date and Time</label>
+                     <input type="datetime-local" class="form-control" name="date" required>
+                  </div>
+               </div>
+                <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Arrival Time</label>
+                     <input type="datetime-local" class="form-control" name="arrival_time" required>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>From Place</label>
+                     <input type="text" class="form-control" name="from_place" required>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>To Place</label>
+                     <input type="text" class="form-control" name="to_place" required>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Via Place</label>
+                     <input type="text" class="form-control" name="via_place" >
+                  </div>
+               </div>
+               <!---
+               <div class="col-sm-11">
+                  <label>Driver</label>
+                  <select class="form-control" name="driver_id" required>
+                     <option>Select Driver</option>
+                     {% for i in driver %}
+                     <option value="{{i.admin.id}}">{{i.admin.first_name}} {{i.admin.last_name}}</option>
+                     {% endfor %}
+                  </select>
+               </div>
+               <br>
+               <div class="col-sm-11">
+                  <label>Vehicle</label>
+                  <select class="form-control" name="vehicle_id" required>
+                     <option>Select Vehicle</option>
+                     {% for i in vehicle %}
+                     {% if i.status != "Maintenance"%}
+                     <option value="{{i.id}}">{{i.name}}</option>
+                     {% endif %}
+                     {% endfor %}
+                  </select>
+               </div>
+               --->
+               <br>
+               <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Next <i class="fa-solid fa-arrow-right"></i></button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

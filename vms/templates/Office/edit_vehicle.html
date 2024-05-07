@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+   <div class="col-sm-12">
+      <div class="card">
+         <div class="card-body">
+            <form method = "post" action="{% url 'update_vehicle' %}" enctype="multipart/form-data">
+               {% csrf_token %}
+               <div class="col-12">
+                  <h5 class="form-title"><span>Edit Vehicle</span></h5>
+               </div>
+
+               {% include 'includes/messages.html' %}
+               <input type="text" class="form-control" name="vehicle_id" value="{% for i in vehicle %}{{i.id}}{% endfor %}" hidden>
+
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Name</label>
+                     <input type="text" class="form-control" name="name" value="{% for i in vehicle %}{{i.name}}{% endfor %}" >
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Licence Number</label>
+                     <input type="text" class="form-control" name="licence_number" value="{% for i in vehicle %}{{i.licence_number}}{% endfor %}" >
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <label>Driver</label>
+                  <select class="form-control" name="driver" value="{% for i in vehicle %}{{i.driver}}{% endfor %}" >
+
+                     <option value="{% for i in vehicle %}{{i.driver.id}}{% endfor %}">Select Driver</option>
+                     {% for i in driver %}
+                     <option value="{{i.id}}">{{i.admin.first_name}} {{i.admin.last_name}}</option>
+                     {% endfor %}
+
+                  </select>
+               </div>
+               <br>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Status</label>
+                     <select class="form-control" name="status" value="{% for i in vehicle %}{{i.status}}{% endfor %}" >
+
+                        {% for i in vehicle %}
+                        <option value="{{i.status}}">{{i.status}}</option>
+                        {% if i.status != 'Resting'%}
+                        <option value="Resting">Resting</option>
+
+                        {% endif %}
+                        {% if i.status != 'Scheduled'%}
+                        <option value="Scheduled">Scheduled</option>
+
+                        {% endif %}
+                        {% if i.status != 'Traveling'%}
+                        <option value="Traveling">Traveling</option>
+
+                        {% endif %}
+                        {% if i.status != 'Maintenance'%}
+                        <option value="Maintenance">Maintenance</option>
+
+                        {% endif %}
+                        {% endfor %}
+
+                  </select>
+                  </div>
+               </div>
+
+               <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Update Teacher</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+
+{% load static %}
+<script>
+   $(document).ready( function () {
+   $('#table_id').DataTable();
+   } );
+</script>
+<div class="content container-fluid">
+   <div class="page-header">
+      <div class="row align-items-center">
+         <div class="col">
+            <h3 class="page-title">Today's Schedule</h3>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="card card-table">
+            <div class="card-body">
+               <div class="table-responsive">
+                  <table id="table_id" class="table table-hover table-center mb-0">
+                     <thead>
+                        <tr>
+                           <th>Date</th>
+                           <th>place</th>
+                           <th>Vehicle</th>
+                           <th>Driver</th>
+                           {% if request.user.user_type == '1' %}
+                           <th>Requisition</th>
+                           {% endif %}
+                     </thead>
+                     <tbody>
+                        {% for i in schedule %}
+
+                        <tr>
+
+                           <td>{{i.date}}</td>
+                           <td>{{i.place}}</td>
+                           <td>{{i.vehicle_id}}</td>
+                           <td>{{i.driver_id}}</td>
+                           {% if request.user.user_type == '1' %}
+                           {% if i.requisition%}
+                           <td><i class="fa-solid fa-check"></i>Req id: {{i.requisition_id.id}}</td>
+                           {% else %}
+                           <td><i class="fa-solid fa-xmark"></i></td>
+                           {% endif %}
+                           {% endif %}
+                        </tr>
+
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

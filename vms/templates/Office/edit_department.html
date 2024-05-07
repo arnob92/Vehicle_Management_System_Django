@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+   <div class="col-sm-12">
+      <div class="card">
+         <div class="card-body">
+            <form method = "post" action="{% url 'update_department' %}" enctype="multipart/form-data">
+               {% csrf_token %}
+               <div class="col-12">
+                  <h5 class="form-title"><span>Edit Vehicle</span></h5>
+               </div>
+
+               {% include 'includes/messages.html' %}
+               <input type="text" class="form-control" name="department_id" value="{% for i in department %}{{i.id}}{% endfor %}" hidden>
+
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Name</label>
+                     <input type="text" class="form-control" name="name" value="{% for i in department %}{{i.name}}{% endfor %}" >
+                  </div>
+               </div>
+
+               <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Update Department</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

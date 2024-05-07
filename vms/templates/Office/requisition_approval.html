@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+   <div class="col-sm-12">
+      <div class="card">
+         <div class="card-body">
+            <form method = "post" action="{% url 'teacher_approve_requisition_save'%}" enctype="multipart/form-data">
+               {% csrf_token %}
+
+               <div class="col-12">
+                  <h5 class="form-title"><span>Requisition Approval</span></h5>
+               </div>
+                <input type="text" class="form-control" name="req_id" value="{% for i in requisition %} {{i.id}} {% endfor %}" readonly hidden="hidden">
+
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Name</label>
+                     <input type="text" class="form-control" name="name" value="{% for i in requisition %} {{i.teacher_id}} {% endfor %}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Department</label>
+                     <input type="text" class="form-control" name="department" value="{% for i in requisition %} {{i.teacher_id.department}} {% endfor %}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Designation</label>
+                     <input type="text" class="form-control" name="designation" value="{% for i in requisition %} {{i.teacher_id.designation}} {% endfor %}" readonly>
+                  </div>
+               </div>
+                <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Place</label>
+                     <input type="text" class="form-control" name="place" value="{% for i in requisition %} {{i.place}} {% endfor %}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Requisition Date</label>
+                     <input type="text" class="form-control" name="date" value="{% for i in requisition %} {{i.date}} {% endfor %}" readonly>
+                  </div>
+               </div>
+                <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Arrival Date</label>
+                     <input type="text" class="form-control" name="arrival_time" value="{% for i in requisition %} {{i.arrival_time}} {% endfor %}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Request Date</label>
+                     <input type="text" class="form-control" name="created_at" value="{% for i in requisition %} {{i.created_at}} {% endfor %}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Vehicle_type</label>
+                     <input type="text" class="form-control" name="requisition_id" value="{% for i in requisition %} {{i.vehicle_type}} {% endfor %}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Purpose</label>
+                     {% for i in requisition %}
+                     {% if i.cause == 0 %}
+                     <input type="text" class="form-control" name="cause" value="Official" readonly>
+
+                     {% elif i.cause == 1 %}
+                     <input type="text" class="form-control" name="cause" value="Personal" readonly>
+
+                     {% endif %}
+                     {% endfor %}
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                  <div class="form-group">
+                     <label>Reason in details</label>
+                     <input type="text" class="form-control" name="reason" value="{% for i in requisition %} {{i.reason}} {% endfor %}" readonly>
+                  </div>
+               </div>
+               <div class="col-sm-11">
+                   <div class="form-group">
+                       <label>Driver</label>
+                       <select class="form-control" name="driver_id" required>
+                           <option>Select Driver</option>
+                           {% for i in driver %}
+                           {% if i not in notdriver_list %}
+                           <option value={{i.id}}>{{i.admin.first_name}} &nbsp; {{i.admin.last_name}}</option>
+                           {% endif %}
+                           {% endfor %}
+                       </select>
+                   </div>
+               </div>
+               <div class="col-sm-11">
+                   <div class="form-group">
+                       <label>Vehicle</label>
+                       <select class="form-control" name="vehicle_id" required>
+                           <option>Select Vehicle</option>
+                           {% for i in vehicle %}
+                           {% if i not in notvehicle_list %}
+                           {% if i.status != "Maintenance" %}
+                           <option value={{i.id}}>{{i.name}}</option>
+                           {% endif %}
+                           {% endif %}
+                           {% endfor %}
+                       </select>
+                   </div>
+               </div>
+               <div class="col-12">
+                  <button type="submit" class="btn btn-success">Approve Requisition</button>
+                  <a href="{% url 'requisition_view' %}" class="btn btn-danger mr-2">Close</a>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
