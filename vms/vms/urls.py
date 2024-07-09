@@ -91,6 +91,8 @@ urlpatterns = [
 
     path('driver/home',Driver_views.HOME,name='driver_home'),
     path('driver/view_schedule',Driver_views.VIEW_SCHEDULE,name='driver_view_schedule'),
+    path('driver/view_schedule/delete/<str:id>',Driver_views.DRIVER_DELETE_SCHEDULE,name='driver_delete_schedule'),
+    path('driver/view_schedule/complete/<str:id>',Driver_views.DRIVER_COMPLETE_SCHEDULE,name='driver_complete_schedule'),
     path('driver/view_complete_schedule', Driver_views.VIEW_COMPLETE_SCHEDULE, name='driver_view_complete_schedule'),
     path('driver/vehicle/view',Driver_views.DRIVER_VIEW_VEHICLE,name='driver_view_vehicle'),
 

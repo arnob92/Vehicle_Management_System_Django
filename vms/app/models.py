@@ -13,6 +13,9 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(choices=USER, max_length=50, default=1)
     profile_pic = models.ImageField(upload_to='media/profile_pic')
 
+    def __str__(self):
+        return self.user_type
+
 
 class Department(models.Model):
     name = models.CharField(max_length=100)

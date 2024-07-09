@@ -46,3 +46,23 @@ def DRIVER_VIEW_VEHICLE(request):
         'vehicle': vehicle,
     }
     return render(request, 'Driver/driver_view_vehicle.html', context)
+
+
+def DRIVER_DELETE_SCHEDULE(request, id):
+    schedule = Schedule.objects.get(id=id)
+    schedule.delete()
+    messages.success(request, 'Schedule is Successfully Deleted')
+    return redirect('driver_view_schedule')
+
+
+def DRIVER_COMPLETE_SCHEDULE(request, id):
+    schedule = Schedule.objects.get(id=id)
+    schedule.completion = True
+    if schedule.requisition:
+        requisition_id = schedule.requisition_id.id
+        requisition = Requisition.objects.get(id=requisition_id)
+        requisition.req_status = 3
+        requisition.save()
+    schedule.save()
+    messages.success(request, 'Schedule Completion is Successful')
+    return redirect('driver_complete_schedule')
